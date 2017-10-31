@@ -9,6 +9,7 @@ filetype plugin indent on
 let g:javascript_plugin_jsdoc = 1
 
 " General
+set noswapfile
 set nu
 set linebreak
 "set showbreak=+++
