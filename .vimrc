@@ -58,15 +58,6 @@ nnoremap gb :ls<CR>:b
 
 nnoremap gf :buffer wincmd f<CR>
 
-" allows cursor change in tmux mode
-if exists('$TMUX')
-    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-else
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-endif
-
 " Status Line
 set laststatus=2
 set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
@@ -74,6 +65,16 @@ set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
 execute pathogen#infect()
 syntax on 
 filetype plugin indent on
+
+
+" Ack use ag
+if executable('ag')
+    let g:ackprg = 'ag --vimgrep --smart-case'                                                   
+    cnoreabbrev ag Ack                                                                           
+    cnoreabbrev aG Ack                                                                           
+    cnoreabbrev Ag Ack                                                                           
+    cnoreabbrev AG Ack 
+endif
 
 " vim-javascript
 " http://github.com/pangloss/vim-javascript
