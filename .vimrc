@@ -61,48 +61,26 @@ nnoremap gf :buffer wincmd f<CR>
 " Status Line
 set laststatus=2
 set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
-
-execute pathogen#infect()
 syntax on 
 filetype plugin indent on
 
-
 " Ack use ag
 if executable('ag')
-    let g:ackprg = 'ag --vimgrep --smart-case'                                                   
-    cnoreabbrev ag Ack                                                                           
-    cnoreabbrev aG Ack                                                                           
-    cnoreabbrev Ag Ack                                                                           
-    cnoreabbrev AG Ack 
+    let g:ackprg = 'ag --vimgrep --smart-case'
+    cnoreabbrev ag Ack
+    cnoreabbrev aG Ack
+    cnoreabbrev Ag Ack
+    cnoreabbrev AG Ack
 endif
 
-" vim-javascript
-" http://github.com/pangloss/vim-javascript
-" let g:javascript_plugin_jsdoc = 1
-"
-"
-"
-" Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:Syntastic_auto_loc_list = 1
-let g:Syntastic_check_on_open = 1
-let g:Syntastic_check_on_wq = 0
-
-
-" TagBar 
-nmap <Ctrl-T> :TagbarToggle<CR>
-
-" Buftabline
-" nnoremap <C-N> :bn<CR>
-" nnoremap <C-P> :bp<CR>
-" Rust Racer
-let g:racer_experimental_completer = 1
-au FileType rust nmap gd <Plug>(rust-def)
-au FileType rust nmap gs <Plug>(rust-def-split)
-au FileType rust nmap gx <Plug>(rust-def-vertical)
-au FileType rust nmap <leader>gd <Plug>(rust-doc)
-
+"Start of plugins
+call plug#begin('~/.vim/plugged')
+"fzf.vim
+Plug '~/.fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'mileszs/ack.vim'
+Plug 'bling/vim-bufferline'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'vim-airline/vim-airline'
+call plug#end()
