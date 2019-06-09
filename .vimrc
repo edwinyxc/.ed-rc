@@ -30,8 +30,6 @@ set undolevels=5000
 set backspace=indent,eol,start
 set background=dark
 set mouse=a
-"colorscheme morning
-
 "Start of plugins
 call plug#begin('~/.vim/plugged')
 "fzf.vim
@@ -44,7 +42,7 @@ Plug 'bling/vim-bufferline'
 Plug 'prabirshrestha/async.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-syntastic/syntastic'
+" Plug 'vim-syntastic/syntastic'
 
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'skywind3000/gutentags_plus'
@@ -57,8 +55,21 @@ Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
 	" Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 	" Or build from source code
 	" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+" End of coc   
 
+Plug 'nanotech/jellybeans.vim'
 call plug#end()
+
+colorscheme jellybeans
+let g:jellybeans_overrides = {
+\    'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
+\}
+
+if has('termguicolors') && &termguicolors
+    let g:jellybeans_overrides['background']['guibg'] = 'none'
+endif
+
+let g:jellybeans_use_lowcolor_black = 1
 
 " Ack use ag
 if executable('ag')
