@@ -1,35 +1,69 @@
+scriptencoding utf-8
+set encoding=utf-8
 set nocompatible
+set t_co=256
 " General
-set noeb vb t_vb=
+set foldcolumn=0
+set nu
+set history=5000
+set autoread
+" set magic
+" set showmode
+set lazyredraw
+" set showcmd
+set noeb novb vb t_vb=
+set tm=500
+" if hidden is not set, TextEdit might fail.
+set hidden
+
+set backspace=indent,eol,start
+set whichwrap+=<,>,h,l
+
+syntax on 
 
 set noswapfile
-set nu
-" set linebreak
-set showcmd
-" set showbreak=+++
-" set textwidth=80
-set showmatch
-set visualbell
-set smartcase
-set ignorecase
-set incsearch
-set hlsearch
+set nobackup
+set nowritebackup
+
+" ================ Persistent Undo ==================
+" Keep undo history across sessions, by storing in file.
+" Only works all the time.
+if has('persistent_undo') && isdirectory(expand('~').'/.vim/backups')
+  silent !mkdir ~/.vim/backups > /dev/null 2>&1
+  set undodir=~/.vim/backups
+  set undofile
+endif
+
+set autoindent
+set smartindent
+set smarttab
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
+set expandtab
+
+" Auto indent pasted text
+nnoremap p p=`]<C-o>
+nnoremap P P=`]<C-o>
+
 set wildmenu
 set wildmode=longest:list,full
 
-set autoindent
-" " set cindent
-set tabstop=4
-" set softtabstop=4
-set expandtab
-set shiftwidth=4
-" set smartindent
-" set smarttab
-set lazyredraw
+
+set scrolloff=8
+set sidescrolloff=15
+set sidescroll=1
+
+set hlsearch
+set incsearch
+set showmatch
+set ignorecase
+set smartcase
+set infercase
+
 set undolevels=5000
-set backspace=indent,eol,start
-set background=dark
-set mouse=a
+"set background=dark
+
 "Start of plugins
 call plug#begin('~/.vim/plugged')
 "fzf.vim
@@ -50,34 +84,32 @@ Plug 'skywind3000/vim-preview'
 " Plug 'prabirshrestha/vim-lsp'
 
 " Install nightly build, replace ./install.sh with install.cmd on windows
-Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
+" Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
 	" Or install latest release tag
-	" Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+Plug 'neoclide/coc.nvim', {'tag': '*', 'branch' : 'release' }
 	" Or build from source code
 	" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 " End of coc   
 
+Plug 'christoomey/vim-tmux-navigator'
 Plug 'nanotech/jellybeans.vim'
 call plug#end()
 
-colorscheme jellybeans
+" fix the green screen bug on windows Terminal.app
+" by using the terminal background
 let g:jellybeans_overrides = {
-\    'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
-\}
+      \    'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
+      \}
 
-if has('termguicolors') && &termguicolors
-    let g:jellybeans_overrides['background']['guibg'] = 'none'
-endif
-
-let g:jellybeans_use_lowcolor_black = 1
+colorscheme jellybeans
 
 " Ack use ag
 if executable('ag')
     let g:ackprg = 'ag --vimgrep --smart-case'
 endif
 
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
+"let g:airline_powerline_fonts = 1
+"let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='base16_grayscale'
 
 " LEADER
@@ -97,7 +129,6 @@ nnoremap gb :ls<CR>:b
 " Status Line
 " set laststatus=2
 " set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
-syntax on 
 filetype plugin indent on
 
 nmap <leader>b :Buffers<CR>
@@ -164,20 +195,12 @@ inoremap <m-d> <c-\><c-o>:PreviewScroll +1<cr>
 
 
 " COC.nvim
-"
-
-" if hidden is not set, TextEdit might fail.
-set hidden
-
-" Some servers have issues with backup files, see #649
-set nobackup
-set nowritebackup
 
 " Better display for messages
-" set cmdheight=3
+set cmdheight=3
 
 " Smaller updatetime for CursorHold & CursorHoldI
-set updatetime=300
+set updatetime=4000
 
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
@@ -300,4 +323,6 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+" Custom Settings
 autocmd FileType json syntax match Comment +\/\/.\+$+

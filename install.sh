@@ -19,20 +19,20 @@ ln -s  ~/.ed-rc/.tmux.conf ~/.tmux.conf
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf 
 ~/.fzf/install
 
-    #Install fd 
-    wget https://github.com/sharkdp/fd/releases/download/v7.3.0/fd_7.3.0_amd64.deb -O /tmp/fd.deb
-    sudo dpkg -i /tmp/fd.deb
-    # respecting .gitignore
-    echo 'export FZF_DEFAULT_COMMAND="fd --type f"' >> ~/.bashrc
+#Install fd 
+wget https://github.com/sharkdp/fd/releases/download/v7.3.0/fd_7.3.0_amd64.deb -O /tmp/fd.deb
+sudo dpkg -i /tmp/fd.deb
+# respecting .gitignore
+echo 'export FZF_DEFAULT_COMMAND="fd --type f"' >> ~/.bashrc
 
 # vim-plug
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # nodejs (required for coc.nvim)
 curl -sL install-node.now.sh/lts | sudo bash
     # Optional install yarn if you want install extension by CocInstall command
-    curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
+curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
 
 #Install tmux plugin manager
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
