@@ -1,25 +1,12 @@
-"Mode Settings
+" vim-bootstrap 
 "
-let &t_SI.="\e[5 q" "SI = INSERT mode
-let &t_SR.="\e[4 q" "SR = REPLACE mode
-let &t_EI.="\e[1 q" "EI = NORMAL mode (ELSE)
-"
-""Cursor settings:
-
-"  1 -> blinking block
-"  "  2 -> solid block 
-"  "  3 -> blinking underscore
-"  "  4 -> solid underscore
-"  "  5 -> blinking vertical bar
-"  "  6 -> solid vertical bar
-"
-"
+set guicursor=
+:autocmd OptionSet guicursor noautocmd set guicursor=
 
 "*****************************************************************************
 "" Vim-PLug core
 "*****************************************************************************
-let vimplug_location='~/.vim/autoload/plug.vim'
-let vimplug_exists=expand(vimplug_location)
+let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 
 let g:vim_bootstrap_langs = "c,html,javascript,python,rust"
 let g:vim_bootstrap_editor = "nvim"				" nvim or vim
@@ -38,12 +25,11 @@ if !filereadable(vimplug_exists)
 endif
 
 " Required:
-call plug#begin(expand('~/.vim/plugged'))
+call plug#begin(expand('~/.config/nvim/plugged'))
 
 "*****************************************************************************
 "" Plug install packages
 "*****************************************************************************
-Plug 'sheerun/vim-polyglot'
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 "Plug 'tpope/vim-commentary'
@@ -95,11 +81,12 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "*****************************************************************************
 
 "" Include user's extra bundle
-if filereadable(expand("~/.vim/local_bundles.vim"))
-  source ~/.vim/local_bundles.vim
+if filereadable(expand("~/.config/nvim/local_bundles.vim"))
+  source ~/.config/nvim/local_bundles.vim
 endif
 
 call plug#end()
+
 " Required:
 filetype plugin indent on
 
@@ -107,18 +94,11 @@ filetype plugin indent on
 "*****************************************************************************
 "" Basic Setup
 "*****************************************************************************"
-"
-
 "" Encoding
-set nocompatible
 set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8
 
-" Search down into subdirectives
-"
-set path+=**
-set wildmenu
 
 "" Fix backspace indent
 set backspace=indent,eol,start
@@ -266,7 +246,7 @@ nnoremap <leader>tt :NERDTreeToggle<CR>
 "    let g:ackprg = 'ag --vimgrep --smart-case'
 "endif
 
-"nnoremap <silent> <leader>ff :Rgrep<CR>
+nnoremap <silent> <leader>ff :Rgrep<CR>
 let Grep_Default_Options = '-IR'
 let Grep_Skip_Files = '*.log *.db'
 let Grep_Skip_Dirs = '.git node_modules'
@@ -347,9 +327,9 @@ nnoremap <leader>sd :DeleteSession<CR>
 nnoremap <leader>sc :CloseSession<CR>
 
 "" Tabs
-"nnoremap <Tab> gt
-"nnoremap <S-Tab> gT
-"nnoremap <silent> <S-t> :tabnew<CR>
+nnoremap <Tab> gt
+nnoremap <S-Tab> gT
+nnoremap <silent> <S-t> :tabnew<CR>
 
 "" Set working directory
 nnoremap <leader>. :lcd %:p:h<CR>
@@ -380,16 +360,16 @@ endif
 
 cnoremap <C-E> <C-R>=expand("%:p:h") . "/" <CR>
 nnoremap <silent> <leader>b :Buffers<CR>
-nnoremap <silent> <leader>f :FZF -m<CR>
-"nnoremap <silent> <leader>f :Files<CR>
+nnoremap <silent> <leader>fz :FZF -m<CR>
+nnoremap <silent> <leader>f :Files<CR>
 "Recovery commands from history through FZF
 nmap <leader>y :History:<CR>
 
 " snippets
-"let g:UltiSnipsExpandTrigger="<tab>"
-"let g:UltiSnipsJumpForwardTrigger="<tab>"
-"let g:UltiSnipsJumpBackwardTrigger="<c-b>"
-"let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+let g:UltiSnipsEditSplit="vertical"
 
 " Tagbar
 nmap <silent> <F4> :TagbarToggle<CR>
@@ -453,6 +433,7 @@ nnoremap <Leader>o :.Gbrowse<CR>
 autocmd FileType c setlocal tabstop=4 shiftwidth=4 expandtab
 autocmd FileType cpp setlocal tabstop=4 shiftwidth=4 expandtab
 
+
 " html
 " for html files, 2 spaces
 autocmd Filetype html setlocal ts=2 sw=2 expandtab
@@ -512,9 +493,9 @@ set signcolumn=yes
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <C-Space>
+inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<C-Space>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
@@ -587,8 +568,8 @@ omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
 " Use <TAB> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-nmap <silent> <C-SPACE> <Plug>(coc-range-select)
-xmap <silent> <C-SPACE> <Plug>(coc-range-select)
+nmap <silent> <TAB> <Plug>(coc-range-select)
+xmap <silent> <TAB> <Plug>(coc-range-select)
 
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
@@ -621,12 +602,16 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 
+
+
+
+
 "*****************************************************************************
 "*****************************************************************************
 
 "" Include user's local vim config
-if filereadable(expand("~/.vim/local_init.vim"))
-  source ~/.vim/local_init.vim
+if filereadable(expand("~/.config/nvim/local_init.vim"))
+  source ~/.config/nvim/local_init.vim
 endif
 
 "*****************************************************************************
