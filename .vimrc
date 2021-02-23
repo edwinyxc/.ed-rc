@@ -75,6 +75,7 @@ endif
 Plug 'mileszs/ack.vim'
 Plug 'Shougo/vimproc.vim', {'do': g:make}
 
+Plug 'junegunn/vim-easy-align'
 "" Vim-Session
 "Plug 'xolox/vim-misc'
 "Plug 'xolox/vim-session'
@@ -142,6 +143,7 @@ set hidden
 
 set nobackup
 set nowritebackup
+set noswapfile
 
 "" Searching
 set hlsearch
@@ -679,3 +681,8 @@ else
   let g:airline_symbols.readonly = ''
   let g:airline_symbols.linenr = ''
 endif
+
+" vim-esay-align
+"
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
